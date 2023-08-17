@@ -40,8 +40,8 @@ def Backward(tensorInput, tensorFlow, device):
     tensorInput = torch.cat([tensorInput, Backward_tensorPartial[str(tensorFlow.size())]], 1)
 
     tensorOutput = torch.nn.functional.grid_sample(input=tensorInput, grid=(
-                Backward_tensorGrid[str(tensorFlow.size())] + tensorFlow).permute(0, 2, 3, 1), mode='bilinear',
-                                                   padding_mode='zeros')
+            Backward_tensorGrid[str(tensorFlow.size())] + tensorFlow).permute(0, 2, 3, 1), mode='bilinear',
+                                                   padding_mode='zeros', align_corners=True)
 
     tensorMask = tensorOutput[:, -1:, :, :];
     tensorMask[tensorMask > 0.999] = 1.0;
