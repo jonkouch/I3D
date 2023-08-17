@@ -1,3 +1,7 @@
+import sys
+import os
+print(sys.version)
+sys.path.insert(0, "/data/home/kjonathan/Research_Project/Coding/I3D/video_features/")
 from omegaconf import OmegaConf
 from tqdm import tqdm
 

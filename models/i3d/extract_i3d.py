@@ -15,7 +15,7 @@ from models.transforms import (Clamp, PermuteAndUnsqueeze, PILToTensor,
                                ToFloat, ToUInt8)
 from utils.io import reencode_video_with_diff_fps
 from utils.utils import dp_state_to_normal, show_predictions_on_dataset
-
+from tqdm import tqdm
 
 class ExtractI3D(BaseExtractor):
 
@@ -90,7 +90,13 @@ class ExtractI3D(BaseExtractor):
         first_frame = True
         padder = None
         stack_counter = 0
+        length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        print(length)
+        iter = 0
         while cap.isOpened():
+            iter += 1
+            if iter % 10 == 0:
+                print(f'iter: {iter}')
             frame_exists, rgb = cap.read()
 
             if first_frame:
